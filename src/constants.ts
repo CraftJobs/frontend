@@ -1,4 +1,4 @@
-const API_HOST = 'http://api.craftjobs.net';
+const API_HOST = 'http://api.craftjobs.net/v1';
 const SELF_HOST = 'https://craftjobs.net';
 
 const endpoints = {
