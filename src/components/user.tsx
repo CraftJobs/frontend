@@ -50,7 +50,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     const [refreshHack, setRefreshHack] = useState(-1);
     const [avatarUrlInput, setAvatarUrlInput] = useState(avatarUrl);
     const [redirect, setRedirect] = useState('');
-    const [descriptionInput, setDescriptionInput] = useState('');
+    const [descriptionInput, setDescriptionInput] = useState(description);
     const [error, setError] = useState('');
     const [rateRangeHigherDisplay, setRateRangeHigherDisplay] = useState(rateRangeHigherInput + '');
     const [rateRangeLowerDisplay, setRateRangeLowerDisplay] = useState(rateRangeLowerInput + '');
