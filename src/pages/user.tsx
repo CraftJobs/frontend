@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPreEmitDiagnostics } from 'typescript';
-import { LookingFor, Role, RateRangeType, Language, ConnectionType, User as UserType, endpoints, UsersGetSelfUser } from '../constants';
+import { Role, RateRangeType, ConnectionType, User as UserType, endpoints, UsersGetSelfUser } from '../constants';
 import User from '../components/user';
 
 

@@ -25,7 +25,7 @@ export default function Finish() {
     }
 
     function handleButtonClick() {
-        if (password != confirm) {
+        if (password !== confirm) {
             setError('Passwords do not match.');
             return;
         }

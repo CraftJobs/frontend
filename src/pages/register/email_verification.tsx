@@ -9,7 +9,8 @@ export default function EmailVerification() {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
 
-    const [fromFinishFail, setFromFinishFail] = useState(query.has('f'));
+    const [isForgotPassword] = useState(query.has('fp'));
+    const [fromFinishFail] = useState(query.has('f'));
     const [statusText, setStatusText] = useState('');
     const [email, setEmail] = useState('');
     const [doRedirect, setDoRedirect] = useState(false);
@@ -28,7 +29,7 @@ export default function EmailVerification() {
     }
 
     function handleButtonClick() {
-        endpoints.register.sendEmail(email, captchaToken).then(res => {
+        endpoints.register.sendEmail(email, captchaToken, isForgotPassword).then(res => {
             if (res.deviceToken) {
                 localStorage.setItem("deviceToken", res.deviceToken);
             }
@@ -40,7 +41,10 @@ export default function EmailVerification() {
     return <div>
         <div className="container mx-auto md:px-64">
         <figure className="bg-gray-100 rounded-xl md:mt-9 md:ml-9 shadow pl-3 pt-2 pb-3">
-            <h1 className="text-2xl">Signup: Email Verification</h1>
+            <h1 className="text-2xl">{!isForgotPassword
+                ? 'Signup: Email Verification' 
+                : 'Forgot Password'
+            }</h1>
             <br />
             {fromFinishFail
                 ? <div><p><b>
@@ -48,9 +52,13 @@ export default function EmailVerification() {
                     confirming your email again.
                 </b></p><br /></div>
                 : ''}
-            <p>In order to protect the email addresses of our users, we'll send you an email first
-            before completing registration. If you already have an account here, we'll let you
-            know. NOTE: You can only send these emails once every 10 minutes.</p>
+            {!isForgotPassword ? 
+                <p>In order to protect the email addresses of our users, we'll send you an email first
+                before completing registration. If you already have an account here, we'll let you
+                know. NOTE: You can only send these emails once every 10 minutes.</p>
+                : <p>
+                Enter your email below. We'll send you a link to reset your password if your account exists.
+                </p>}
             <br />
             <p>Your email address:</p>
             <input 

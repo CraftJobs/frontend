@@ -1,17 +1,14 @@
 import moment from 'moment';
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 
 import { 
     User, 
     Experience, 
     rateRangeTypeStrings, 
-    lookingForStrings, 
     roleStrings, 
-    languageStrings,
     RateRangeType,
     ReputationLogEntry,
-    LookingFor,
     Role,
     connectionTypeData,
     ConnectionType,
@@ -26,26 +23,25 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     const { self } = props;
 
     //#region state
-    const [user, setUser] = useState(props.user);
-    const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
-    const [fullName, setFullName] = useState(user.fullName);
-    const [username, setUsername] = useState(user.username);
-    const [lookingFor, setLookingFor] = useState(user.lookingFor);
-    const [rateRange, setRateRange] = useState(user.rateRange);
-    const [reputation, setReputation] = useState(user.reputation);
-    const [role, setRole] = useState(user.role);
-    const [experience, setExperience] = useState(user.experience);
-    const [rateRangeType, setRateRangeType] = useState(user.rateRangeType);
-    const [languages, setLangauges] = useState(user.languages);
-    const [admin, setAdmin] = useState(user.admin);
-    const [description, setDescription] = useState(user.description);
-    const [reputationLog, setReputationLog] = useState(user.reputationLog);
+    const [user] = useState(props.user);
+    const [avatarUrl] = useState(user.avatarUrl);
+    const [fullName] = useState(user.fullName);
+    const [username] = useState(user.username);
+    const [lookingFor] = useState(user.lookingFor);
+    const [rateRange] = useState(user.rateRange);
+    const [reputation] = useState(user.reputation);
+    const [role] = useState(user.role);
+    const [experience] = useState(user.experience);
+    const [rateRangeType] = useState(user.rateRangeType);
+    const [admin,] = useState(user.admin);
+    const [description] = useState(user.description);
+    const [reputationLog] = useState(user.reputationLog);
     const [fullNameInput, setFullNameInput] = useState(fullName);
     const [rateRangeLowerInput, setRateRangeLowerInput] = useState(rateRange.length > 0 ? rateRange[0] : 0);
     const [rateRangeHigherInput, setRateRangeHigherInput] = useState(rateRange.length > 1 ? rateRange[1] : 0);
     const [rateIsRangeInput, setRateIsRangeInput] = useState(rateRange.length > 1);
     const [rateRangeTypeInput, setRateRangeTypeInput] = useState(rateRangeType);
-    const [lookingForInput, setLookingForInput] = useState(lookingFor);
+    const [, setLookingForInput] = useState(lookingFor);
     const [roleInput, setRoleInput] = useState(role);
     const [orientation, setOrientation] = useState(query.has('o'));
     const [edit, setEdit] = useState(orientation);
@@ -423,12 +419,12 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                     {' '}(
                     <span className={
                         "text-green-500 hover:underline cursor-pointer" + 
-                        (self && self.reputationGiven == 1 ? ' font-bold' : '')
+                        (self && self.reputationGiven === 1 ? ' font-bold' : '')
                     } onClick={() => setReputationInput(1)}>+rep</span> 
                     {' '}/{' '}
                     <span className={
                         "text-red-500 hover:underline cursor-pointer" + 
-                        (self && self.reputationGiven == -1 ? ' font-bold' : '')
+                        (self && self.reputationGiven === -1 ? ' font-bold' : '')
                     } onClick={() => setReputationInput(-1)}>-rep</span>)
                 </span>
             }

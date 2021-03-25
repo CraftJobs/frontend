@@ -7,7 +7,6 @@ export default function RedirectPage() {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
 
-    const prefillUsername = query.has('u') ? query.get('u') as string : '';
     let redirect = query.has('r') ? (query.get('r') as string) : '';
     const redirectQuery = query.has('rq') ? '?' + query.get('rq') : '';
 

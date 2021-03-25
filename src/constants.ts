@@ -1,16 +1,15 @@
-import { stringify } from "node:querystring";
-
-const API_HOST = 'http://localhost:7085/v1';
-const SELF_HOST = 'http://localhost:3000';
+const API_HOST = 'http://api.craftjobs.net';
+const SELF_HOST = 'https://craftjobs.net';
 
 const endpoints = {
     register: {
         sendEmail: (
             email: string, 
-            captchaToken: string
+            captchaToken: string,
+            isReset: boolean, 
         ): Promise<{ message: string, deviceToken: string }> => 
             getEndpoint(
-                'register/send-email', 
+                'register/send-email' + (isReset ? '?f=1' : ''), 
                 { body: JSON.stringify({ email, captchaToken }) }
             ),
         checkEmailToken: (token: string): Promise<{success: boolean, email: string}> => 
@@ -74,7 +73,19 @@ const endpoints = {
             password: string, 
             remember: boolean,
         ): Promise<{success: boolean, token?: string, message?: string}> =>
-            getEndpoint('login', { body: JSON.stringify({ username, password, remember }) })
+            getEndpoint('login', { body: JSON.stringify({ username, password, remember }) }),
+        changePassword: (
+            isReset: boolean,
+            token: string,
+            password: string,
+            oldPassword: string = '',
+        ): Promise<{success: boolean, message: string}> =>
+            getEndpoint('login/change-password', {
+                headers: { Authorization: (isReset ? 'PasswordReset' : 'Bearer') + ' ' + token },
+                body: JSON.stringify({ password, oldPassword }),
+            }),
+        logout: (token: string): Promise<void> => 
+            getEndpoint('login/logout', { headers: { Authorization: token } }),
     },
 }
 
@@ -156,29 +167,21 @@ const connectionTypeData = {
         isLink: true, 
         linkPrefix: 'https://github.com/', 
         name: 'GitHub',
-        // https://github.com/shinnn/github-username-regex/blob/master/index.js
-        pattern: /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i
     },
     [ConnectionType.EMAIL]: { 
         isLink: true, 
         linkPrefix: 'mailto:', 
         name: 'Email',
-        // jesus christ. https://stackoverflow.com/a/201378
-        pattern: /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/g
     },
     [ConnectionType.DISCORD]: { 
         isLink: false, 
         linkPrefix: '', 
         name: 'Discord',
-        // https://stackoverflow.com/questions/51507182/discord-username-format-check/51507374#comment114713791_51507374
-        pattern: /^((?!(discordtag|everyone|here)#)((?!@|#|:|```).{2,32})#\d{4})$/g
     },
     [ConnectionType.TWITTER]: { 
         isLink: true, 
         linkPrefix: 'https://twitter.com/', 
-        name: 'Twitter', 
-        // slightly modified from: https://stackoverflow.com/a/8650024
-        pattern: /^(\w){1,15}$/g
+        name: 'Twitter',
     },
 }
 

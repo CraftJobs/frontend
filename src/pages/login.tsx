@@ -3,8 +3,6 @@ import { Redirect, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { endpoints } from '../constants';
 
-const USERNAME_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345679_';
-
 export default function Login() {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
@@ -13,6 +11,7 @@ export default function Login() {
     let redirect = query.has('r') ? (query.get('r') as string) : '';
     const redirectQuery = query.has('rq') ? query.get('rq') : '';
 
+    const [changedPassword] = useState(query.has('c'));
     const [username, setUsername] = useState(prefillUsername);
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
@@ -34,6 +33,7 @@ export default function Login() {
         <figure className="bg-gray-100 rounded-xl mt-9 ml-9 shadow pl-3 pt-2 pb-3">
         <h1 className="text-2xl">Login</h1>
         <br />
+        { changedPassword ? <b>Password changed. Login to continue.</b> : ''}
         <p>Enter your email or username and your password.</p>
         <br />
         <p>Username:</p>
@@ -65,6 +65,10 @@ export default function Login() {
         </button>
         <br />
         <Link to='/i/register/email-verification' className='hover:underline'>Sign up instead</Link>
+        <span> | </span>
+        <Link to='/i/register/email-verification?fp=1' className='hover:underline'>
+            Forgot your password?
+        </Link>
         <br />
         <p className="mt-2">
             {statusText}
