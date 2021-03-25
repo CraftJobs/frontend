@@ -472,6 +472,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                 </span>)
                 : Array.from(user.connections).map(([type, link]) => <Connection link={link} type={type} />)
             }
+            { user.connections.size > 0 ? <br /> : '' }
             <br />
             {!edit ? description : ''}
             <span className='text-red-500'>{error}</span>
