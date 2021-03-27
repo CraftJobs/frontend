@@ -12,7 +12,9 @@ export default function Connection({ type, link }: ConnectionProps) {
     return <span>
         <br />
         {data.name}: <b>{data.isLink
-            ? <a href={data.linkPrefix + link}>{link}</a>
+            ? <a className='hover:underline' href={data.linkPrefix + link}>
+                {link}
+            </a>
             : link 
         }</b>
     </span>

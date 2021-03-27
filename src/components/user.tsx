@@ -58,7 +58,13 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     const [isFollowing, setIsFollowing] = useState(self?.isFollowing);
     const [reputationInput, setReputationInput] = useState(0);
     const [reputationMessageInput, setReputationMessageInput] = useState('');
+    const [adminReputation, setAdminReputation] = useState(false);
     //#endregion state
+
+    function setNeutralReputation() {
+        setReputationInput(0);
+        handleRepClick();
+    }
 
     function getRateRangeFormatted() {
         let rateRangeTwo;
@@ -234,7 +240,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             localStorage.getItem('token') as string, 
             username, 
             reputationInput, 
-            reputationMessageInput
+            reputationInput !== 0 ? reputationMessageInput : ''
         ).then(() => setRedirect('/i/r?r=' + username));
     }
 
@@ -276,7 +282,16 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             {orientation
                 ? 'Welcome to CraftJobs! Set up your profile.'
                 : (self
-                    ? <span>Logged in as: <b>{self.username}</b> | 
+                    ? <span>Logged in as:{' '}
+                        <Link className='hover:underline' to={'/' + self.username}>
+                            <b>@{self.username}</b>
+                        </Link> | {' '}
+                        <Link className='hover:underline' to={'/i/login/change-password'}>
+                            <b>Change password</b>
+                        </Link> | {' '}
+                        <a className="hover:underline" href="https://discord.gg/QKMYAaJPCU">
+                            <b>Discord</b>
+                        </a> |
                     <b>{' '}<Link className='hover:underline' to='/i/logout'>Logout</Link></b></span>
                     : <span>
                         Not logged in. | 
@@ -423,6 +438,15 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                     } onClick={() => setReputationInput(1)}>+rep</span> 
                     {' '}/{' '}
                     <span className={
+                        "text-gray-500 hover:underline cursor-pointer" + 
+                        (self && self.reputationGiven === 0 ? ' font-bold' : '')
+                    } onClick={() => setNeutralReputation()}>neutral</span> 
+                    {' '}/{' '}
+                    { self.admin ? <span><span className={
+                        "text-blue-500 hover:underline cursor-pointer"
+                    } onClick={() => setAdminReputation(true)}>custom</span> 
+                    {' '}/{' '}</span> : '' }
+                    <span className={
                         "text-red-500 hover:underline cursor-pointer" + 
                         (self && self.reputationGiven === -1 ? ' font-bold' : '')
                     } onClick={() => setReputationInput(-1)}>-rep</span>)
@@ -473,24 +497,30 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                 : Array.from(user.connections).map(([type, link]) => <Connection link={link} type={type} />)
             }
             { user.connections.size > 0 ? <br /> : '' }
-            <br />
-            {!edit ? description : ''}
+            { description.trim() !== '' ? <br /> : '' }
+            {!edit ? description.split('\n').map(x => <span>{x}<br /></span>) : ''}
             <span className='text-red-500'>{error}</span>
         </div>
     </div>
     <div>
         {experience ? experience.map(getExperience) : ''}
     </div>
-    { edit || reputationInput !== 0 ? <figure className="bg-gray-100 rounded-xl mt-3 md:ml-5 shadow pb-3">
+    { edit || reputationInput !== 0 || adminReputation ? <figure className="bg-gray-100 rounded-xl mt-3 md:ml-5 shadow pb-3">
         <div className="text-sm pl-3 pt-3 mr-3">
-            <b>{reputationInput !== 0 ? 'Reputation message' : 'Description:'}</b>
+            {adminReputation ? <span>
+                Rep Amount: 
+                <input type="number" onChange={e => setReputationInput(e.target.valueAsNumber)} 
+                />
+                <br />
+            </span> : ''}
+            <b>{reputationInput !== 0 || adminReputation ? 'Reputation message' : 'Description:'}</b>
             <br />
             <textarea 
                 className="mt-3 w-full shadow-xl rounded"
-                value={reputationInput !== 0 ? reputationMessageInput : descriptionInput}
+                value={reputationInput !== 0 || adminReputation ? reputationMessageInput : descriptionInput}
                 onChange={
                     e => 
-                    (reputationInput !== 0 
+                    (reputationInput !== 0 || adminReputation
                         ? setReputationMessageInput 
                         : setDescriptionInput)(e.target.value)
                 }
@@ -516,7 +546,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     <figure className="bg-gray-100 rounded-xl mt-3 md:ml-5 shadow pb-3">
         <div className="text-sm pl-3 pt-3 text-gray-500">
             &copy; 2021 CraftJobs 
-            &ndash; All Rights Reserved<br />
+            &ndash; All Rights Reserved
         </div>
     </figure>
     {redirect === '' ? '' : <Redirect to={redirect} />}
