@@ -31,7 +31,8 @@ export default function UsersPage() {
     return <div><figure className="bg-gray-100 rounded-xl lg:mt-5 lg:ml-9 lg:mr-9 shadow pb-1 pt-1">
     <div className="lg:flex text-left pl-3 lg:pl-0 space-y-4 lg:ml-5 lg:mr-5">
         <span>
-            by:{' '}
+            <b><Link className='hover:underline' to='/'>back home</Link></b> &mdash;{' '}
+            sort by:{' '}
             {getCatLink('rep', 'top reputation')} |{' '}
             {getCatLink('low', 'lowest reputation')} |{' '}
             {getCatLink('old', 'oldest users')} |{' '}
