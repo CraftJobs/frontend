@@ -10,6 +10,7 @@ type ConnectionProps = {
 export default function Connection({ type, link, username }: ConnectionProps) {
     const data = connectionTypeData[type];
 
+    let isLink = false;
     let linkDest = data.linkPrefix + link;
     let linkText = link;
 
@@ -21,16 +22,16 @@ export default function Connection({ type, link, username }: ConnectionProps) {
     if (link.startsWith('https://discord.gg')) {
         linkDest = link;
         linkText = link.replace('https://', '');
-        data.isLink = true;
+        isLink = true;
     } else if (link.startsWith('discord.gg')) {
         linkDest = 'https://' + link;
         linkText = link;
-        data.isLink = true;
+        isLink = true;
     }
 
     return <span>
         <br />
-        {data.name}: <b>{data.isLink
+        {data.name}: <b>{isLink
             ? <a className='hover:underline' href={linkDest}>
                 {linkText}
             </a>
