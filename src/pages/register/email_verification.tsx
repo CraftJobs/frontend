@@ -68,6 +68,9 @@ export default function EmailVerification() {
             />
             <br />
             <br />
+            <HCaptcha sitekey="8ab99297-33ae-4799-ae34-3e38ca68e7a9" onVerify={(token) => {
+                setCaptchaToken(token);
+            }} />
             <button 
                 className="focus shadow-xl button bg-blue-100 mt-2 text-lg rounded p-1 text-blue-500"
                 onClick={handleButtonClick}
@@ -80,9 +83,6 @@ export default function EmailVerification() {
             <p className="mt-2">
                 {statusText}
             </p>
-            <HCaptcha sitekey="8ab99297-33ae-4799-ae34-3e38ca68e7a9" onVerify={(token) => {
-                setCaptchaToken(token);
-            }} />
             {doRedirect ? <Redirect to='/' /> : ''}
             <DebugButtons endpoint="register" />
         </figure>
