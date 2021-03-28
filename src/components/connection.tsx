@@ -10,7 +10,7 @@ type ConnectionProps = {
 export default function Connection({ type, link, username }: ConnectionProps) {
     const data = connectionTypeData[type];
 
-    let isLink = false;
+    let isLink = data.isLink;
     let linkDest = data.linkPrefix + link;
     let linkText = link;
 
