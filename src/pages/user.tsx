@@ -58,11 +58,11 @@ export default function UserPage() {
         })
     }
 
-    return <div className="container mx-auto px-64">
+    return <div className="lg:container mx-auto lg:px-64">
         {error === '' 
             ? (self ? <User user={user} self={self} /> : <User user={user} />)
-            : <div className="container mx-auto md:px-64">
-                <figure className="bg-gray-100 rounded-xl md:mt-9 md:ml-9 shadow pl-3 pt-2 pb-3">
+            : <div className="lg:container mx-auto lg:px-64">
+                <figure className="bg-gray-100 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
                     <h1 className="text-2xl">{error}</h1>
                 </figure>
             </div>

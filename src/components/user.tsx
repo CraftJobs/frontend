@@ -99,7 +99,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             verifiedText = <span> &middot; verified by {name}</span>
         }
 
-        return <figure className="md:flex bg-gray-200 rounded-xl p-3 m-5 pl-5 shadow">
+        return <figure className="lg:flex bg-gray-200 rounded-xl p-3 m-5 pl-5 shadow">
             <img 
                 className="w-16 h-16 rounded-full shadow-lg bg-gray-200" 
                 alt="organization avatar" 
@@ -277,7 +277,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     }
 
     return <div>
-    <figure className="md:flex bg-gray-100 rounded-xl mt-9 ml-5 shadow pl-3 pt-2 pb-3">
+    <figure className="lg:flex bg-gray-100 rounded-xl lg:mt-9 lg:ml-5 shadow pl-3 pt-2 pb-3">
         <div className="pl-3">
             {orientation
                 ? 'Welcome to CraftJobs! Set up your profile.'
@@ -303,10 +303,10 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                     </span>)}
         </div>
     </figure>
-    <figure className="bg-gray-100 rounded-xl md:mt-9 ml-5 shadow pb-3">
-    <div className="md:flex pt-6 text-center md:text-left space-y-4 md:ml-9">
+    <figure className="bg-gray-100 rounded-xl lg:mt-9 lg:ml-5 shadow pb-3">
+    <div className="lg:flex pt-6 text-left pl-3 lg:pl-0 space-y-4 lg:ml-9">
         <img 
-            className="w-24 h-24 rounded-full shadow-lg bg-gray-200" 
+            className="w-24 h-24 rounded-full shadow-lg bg-gray-200 mx-auto lg:mx-0" 
             alt="user avatar" 
             src={avatarUrlInput} 
         />
@@ -324,7 +324,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             </div>
             : '' 
         }
-        <div className="md:pl-5" style={{'marginTop': 'auto'}}>
+        <div className="lg:pl-5" style={{'marginTop': 'auto'}}>
             <p className="text-2xl pb-1">
                 { edit 
                     ? <input 
@@ -505,7 +505,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     <div>
         {experience ? experience.map(getExperience) : ''}
     </div>
-    { edit || reputationInput !== 0 || adminReputation ? <figure className="bg-gray-100 rounded-xl mt-3 md:ml-5 shadow pb-3">
+    { edit || reputationInput !== 0 || adminReputation ? <figure className="bg-gray-100 rounded-xl mt-3 lg:ml-5 shadow pb-3">
         <div className="text-sm pl-3 pt-3 mr-3">
             {adminReputation ? <span>
                 Rep Amount: 
@@ -536,14 +536,14 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     </figure> : ''}
     </figure>
     { reputationLog.length > 0
-        ? <figure className="bg-gray-100 rounded-xl mt-3 md:ml-5 shadow pb-3">
-            <div className="pt-6 text-center md:text-left space-y-4 ml-9 pb-3">
+        ? <figure className="bg-gray-100 rounded-xl mt-3 lg:ml-5 shadow pb-3">
+            <div className="pt-6 text-left space-y-4 ml-3 lg:ml-9 pb-3">
                 {reputationLog.map(getReputationEntry)}
             </div>
         </figure> 
         : ''
     }
-    <figure className="bg-gray-100 rounded-xl mt-3 md:ml-5 shadow pb-3">
+    <figure className="bg-gray-100 rounded-xl mt-3 lg:ml-5 shadow pb-3">
         <div className="text-sm pl-3 pt-3 text-gray-500">
             &copy; 2021 CraftJobs 
             &ndash; All Rights Reserved

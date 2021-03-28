@@ -29,7 +29,7 @@ export default function Login() {
         });
     }
 
-    return <div className='container mx-auto md:px-96'>
+    return <div className='container mx-auto lg:px-96'>
         <figure className="bg-gray-100 rounded-xl mt-9 ml-9 shadow pl-3 pt-2 pb-3">
         <h1 className="text-2xl">Login</h1>
         <br />

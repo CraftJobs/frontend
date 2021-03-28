@@ -55,8 +55,8 @@ export default function Finish() {
         })
     }
 
-    return <div className="container mx-auto md:px-64">
-    <figure className="bg-gray-100 rounded-xl md:mt-9 md:ml-9 shadow pl-3 pt-2 pb-3">
+    return <div className="container mx-auto lg:px-64">
+    <figure className="bg-gray-100 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
         <h1 className="text-2xl">Signup: Account details</h1>
         <br />
         <p>Set a username and password. Be careful! Your username cannot be changed.</p>
