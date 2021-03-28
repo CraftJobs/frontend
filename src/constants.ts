@@ -121,6 +121,7 @@ enum Role {
     SYSADMIN = "SYSADMIN",
     MANAGER = "MANAGER",
     OTHER = "OTHER",
+    SERVER_OWNER = "SERVER_OWNER",
 }
 
 enum Language {
@@ -161,6 +162,7 @@ const roleStrings = {
     [Role.MANAGER]: "Manager",
     [Role.SYSADMIN]: "Sysadmin",
     [Role.OTHER]: "Other",
+    [Role.SERVER_OWNER]: "Server Owner",
 }
 
 const connectionTypeData = {

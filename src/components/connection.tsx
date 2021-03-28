@@ -18,6 +18,16 @@ export default function Connection({ type, link, username }: ConnectionProps) {
         linkText = 'login to view';
     }
 
+    if (link.startsWith('https://discord.gg')) {
+        linkDest = link;
+        linkText = link.replace('https://', '');
+        data.isLink = true;
+    } else if (link.startsWith('discord.gg')) {
+        linkDest = 'https://' + link;
+        linkText = link;
+        data.isLink = true;
+    }
+
     return <span>
         <br />
         {data.name}: <b>{data.isLink
