@@ -288,8 +288,8 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                         </Link> | {' '}
                         <Link className='hover:underline' to={'/i/login/change-password'}>
                             <b>Change password</b>
-                        </Link>
-                    <b>{' '}<Link className='hover:underline' to='/i/logout'>Logout</Link></b></span>
+                        </Link> | {' '}
+                    <b><Link className='hover:underline' to='/i/logout'>Logout</Link></b></span>
                     : <span>
                         Not logged in. | 
                         <b>{' '}<Link className='hover:underline' to='/i/login'>Login</Link></b> |
