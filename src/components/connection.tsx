@@ -10,7 +10,7 @@ type ConnectionProps = {
 export default function Connection({ type, link, username }: ConnectionProps) {
     const data = connectionTypeData[type];
 
-    let linkDest = link;
+    let linkDest = data.linkPrefix + link;
     let linkText = link;
 
     if (link === '_unauthed') {
@@ -21,7 +21,7 @@ export default function Connection({ type, link, username }: ConnectionProps) {
     return <span>
         <br />
         {data.name}: <b>{data.isLink
-            ? <a className='hover:underline' href={data.linkPrefix + linkDest}>
+            ? <a className='hover:underline' href={linkDest}>
                 {linkText}
             </a>
             : link 
