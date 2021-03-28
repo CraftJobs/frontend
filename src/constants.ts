@@ -1,4 +1,4 @@
-const API_HOST = 'https://api.craftjobs.net/v1';
+const API_HOST = 'http://localhost:7085/v1';
 const SELF_HOST = 'https://craftjobs.net';
 
 const endpoints = {
@@ -62,6 +62,7 @@ const endpoints = {
                 headers: { Authorization: token },
                 body: JSON.stringify({ message, amount })
             }),
+        list: (cat: string): Promise<ListUser[]> => getEndpoint('users?c=' + cat, {})
     },
     login: {
         checkToken: (token: string): Promise<boolean> => getEndpoint(
@@ -230,6 +231,15 @@ type UsersGetSelfUser = {
     minusReputationFollowing: string[],
 }
 
+type ListUser = { 
+    admin: boolean,
+    createdAt: Date,
+    fullName: string,
+    partialDescription: string,
+    reputation: number,
+    username: string, 
+}
+
 export {
     Role,
     Language,
@@ -246,4 +256,4 @@ export {
     API_HOST,
 }
 
-export type { User, Experience, ReputationLogEntry, UsersGetSelfUser }
+export type { User, Experience, ReputationLogEntry, UsersGetSelfUser, ListUser }

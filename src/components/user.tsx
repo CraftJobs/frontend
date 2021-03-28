@@ -288,10 +288,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                         </Link> | {' '}
                         <Link className='hover:underline' to={'/i/login/change-password'}>
                             <b>Change password</b>
-                        </Link> | {' '}
-                        <a className="hover:underline" href="https://discord.gg/QKMYAaJPCU">
-                            <b>Discord</b>
-                        </a> |
+                        </Link>
                     <b>{' '}<Link className='hover:underline' to='/i/logout'>Logout</Link></b></span>
                     : <span>
                         Not logged in. | 
@@ -301,6 +298,11 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                             to='/i/register/email-verification'>Register</Link>
                         </b>
                     </span>)}
+                {' '}|{' '}
+                    <a className="hover:underline" href="https://discord.gg/QKMYAaJPCU">
+                        <b>Discord</b>
+                    </a> |{' '}
+                    <b><Link className='hover:underline' to='/i/users'>User directory</Link></b>
         </div>
     </figure>
     <figure className="bg-gray-100 rounded-xl lg:mt-9 lg:ml-5 shadow pb-3">
