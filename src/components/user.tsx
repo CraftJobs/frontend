@@ -496,7 +496,9 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                         type="text"
                     />
                 </span>)
-                : Array.from(user.connections).map(([type, link]) => <Connection link={link} type={type} />)
+                : Array.from(user.connections).map(([type, link]) => 
+                    <Connection link={link} type={type} username={username} />
+                )
             }
             { user.connections.size > 0 ? <br /> : '' }
             { description.trim() !== '' ? <br /> : '' }

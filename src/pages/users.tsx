@@ -9,7 +9,7 @@ export default function UsersPage() {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
 
-    const [currentCat, _] = useState(query.get('c'));
+    const [currentCat] = useState(query.get('c'));
     const [users, setUsers] = useState([] as ListUser[]);
     const [fetched, setFetched] = useState(false);
 
