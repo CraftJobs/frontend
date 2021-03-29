@@ -8,6 +8,7 @@ import LoginChangePassword from './pages/login/change_password';
 import RedirectPage from './pages/redirect';
 import Logout from './pages/logout';
 import UsersPage from './pages/users';
+import GKLogin from './pages/gklogin';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <Route exact path='/i/users' component={(props: any) => 
                     <UsersPage {...props} key={window.location.href} />
                 }/>
+                <Route exact path='/i/gklogin' component={GKLogin} />
                 <Route exact path='/' component={() => <Redirect to='/CraftJobs' />} />
                 <Route exact path='/:username' component={(props: any) => 
                     <UserPage {...props} key={window.location.pathname} /*Force rerender on change */ />} 

@@ -103,6 +103,13 @@ const endpoints = {
         logout: (token: string): Promise<void> => 
             getEndpoint('login/logout', { headers: { Authorization: token } }),
     },
+    gk: {
+        check: (token: string, field: string): Promise<{ valid: boolean, field: boolean }> =>
+        getEndpoint(
+            'gk/check',
+            { body: JSON.stringify({ token, field }) }
+        )
+    }
 }
 
 async function getEndpoint(url: string, options: RequestInit | undefined) {
