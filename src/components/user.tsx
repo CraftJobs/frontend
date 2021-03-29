@@ -311,6 +311,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             className="w-24 h-24 rounded-full shadow-lg bg-gray-200 mx-auto lg:mx-0" 
             alt="user avatar" 
             src={avatarUrlInput} 
+            style={{objectFit: 'cover'}}
         />
         { edit 
             ? <div>
