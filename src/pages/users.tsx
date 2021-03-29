@@ -3,15 +3,26 @@ import React, { useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { endpoints, ListUser } from '../constants';
 
-const ALL_CATS = ['rep', 'low', 'old', 'new', 'adm'];
+const ALL_CATS = ['rep', 'low', 'old', 'new', 'adm', 'fol', 'fpr'];
 
 export default function UsersPage() {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
 
     const [currentCat] = useState(query.get('c'));
-    const [users, setUsers] = useState([] as ListUser[]);
+    const [users, setUsers] = useState([{
+        admin: false,
+        createdAt: new Date(),
+        fullName: 'Loading...',
+        partialDescription: '',
+        reputation: 0,
+        username: 'CraftJobs',
+    }]);
     const [fetched, setFetched] = useState(false);
+    const [redirect, setRedirect] = useState('');
+    const token = localStorage.getItem('token');
+
+    console.log(token);
 
     if (!currentCat || !ALL_CATS.includes(currentCat)) {
         return <Redirect to='/i/users?c=rep' />
@@ -25,7 +36,16 @@ export default function UsersPage() {
 
     if (!fetched) {
         setFetched(true);
-        endpoints.users.list(currentCat).then(setUsers);
+        endpoints.users.list(currentCat, token).then((res) => {
+            if (!Array.isArray(res)) {
+                // Bad session.
+                localStorage.removeItem('token');
+                setRedirect('/i/users?c=rep');
+                setUsers([]);
+            } else {
+                setUsers(res);
+            }
+        });
     }
 
     return <div><figure className="bg-gray-100 rounded-xl lg:mt-5 lg:ml-9 lg:mr-9 shadow pb-1 pt-1">
@@ -38,6 +58,12 @@ export default function UsersPage() {
             {getCatLink('old', 'oldest users')} |{' '}
             {getCatLink('new', 'newest users')} |{' '}
             {getCatLink('adm', 'staff')}
+            { token ? 
+            <span>
+                {' | '}
+                {getCatLink('fol', 'people you follow')} |{' '}
+                {getCatLink('fpr', '+reps of people you follow')
+            }</span> : ''}
         </span>
     </div>
     </figure>
@@ -72,5 +98,6 @@ export default function UsersPage() {
         </table>
     </div>
     </figure>
+    { redirect === '' ? '' : <Redirect to={redirect} />}
     </div>
 }

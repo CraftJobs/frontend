@@ -1,4 +1,5 @@
 const API_HOST = 'https://api.craftjobs.net/v1';
+//const API_HOST = 'http://localhost:7085/v1';
 const SELF_HOST = 'https://craftjobs.net';
 
 const endpoints = {
@@ -62,7 +63,21 @@ const endpoints = {
                 headers: { Authorization: token },
                 body: JSON.stringify({ message, amount })
             }),
-        list: (cat: string): Promise<ListUser[]> => getEndpoint('users?c=' + cat, {})
+        list: (
+            cat: string, 
+            auth: string | null
+        ): Promise<ListUser[] | { success: boolean, message: string }> => {
+            console.log(cat);
+            console.log(auth);
+
+            const req: RequestInit = {};
+
+            if (auth) {
+                req.headers = { 'Authorization': auth };
+            }
+
+            return getEndpoint('users?c=' + cat, req);
+        }
     },
     login: {
         checkToken: (token: string): Promise<boolean> => getEndpoint(
@@ -92,20 +107,26 @@ const endpoints = {
 
 async function getEndpoint(url: string, options: RequestInit | undefined) {
     if (!options) {
+        console.log('a');
         options = {};
     }
 
     if (!options.headers) {
+        console.log('b');
         options.headers = {};
     }
 
     if (typeof options.body === 'string') {
+        console.log('c');
         options.headers = {'Content-Type': 'application/json', ...options.headers};
     }
     
     if (options.body && !options.method) {
+        console.log('d');
         options.method = 'post';
     }
+
+    console.log(options);
 
     return await fetch(API_HOST + '/' + url, options).then(r => r.json());
 }
