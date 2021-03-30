@@ -15,6 +15,7 @@ export default function GKLogin() {
     const [field] = useState(query.get('f'));
     const [redirect, setRedirect] = useState('');
     const [token] = useState(localStorage.getItem('token'));
+    const login = '/i/login?r=i/gklogin&rq=' + encodeURIComponent('s=' + sub + '&f=' + field);
 
     if (!sub || !field) return <Redirect to='/' />
 
@@ -24,11 +25,11 @@ export default function GKLogin() {
         }
     }
 
-    if (!token) return <Redirect to={'/i/login?r=i/gklogin&rq=s=' + sub + '&f=' + field} />
+    if (!token) return <Redirect to={login} />
 
     endpoints.gk.check(token, sub).then((res) => {
         if (!res.valid) {
-            setRedirect('/i/login?r=i/gklogin&rq=s=' + sub + '&f=' + field);
+            setRedirect(login);
             return;
         } else if (!res.field) {
             setRedirect('/');
