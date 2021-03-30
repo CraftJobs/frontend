@@ -27,7 +27,7 @@ export default function GKLogin() {
 
     if (!token) return <Redirect to={login} />
 
-    endpoints.gk.check(token, sub).then((res) => {
+    endpoints.gk.check(token, field).then((res) => {
         if (!res.valid) {
             setRedirect(login);
             return;
