@@ -15,7 +15,9 @@ export default function GKLogin() {
     const [field] = useState(query.get('f'));
     const [redirect, setRedirect] = useState('');
     const [token] = useState(localStorage.getItem('token'));
-    const login = '/i/login?r=i/gklogin&rq=' + encodeURIComponent('s=' + sub + '&f=' + field);
+    const [domain] = useState(query.get('d'));
+    const login = '/i/login?r=i/gklogin&rq=' + 
+        encodeURIComponent('s=' + sub + '&f=' + field + (domain ? '&d=' + domain : ''));
 
     if (!sub || !field) return <Redirect to='/' />
 
@@ -35,6 +37,13 @@ export default function GKLogin() {
             setRedirect('/');
         } else {
             document.cookie = 'gktoken=' + token + ';path=/;domain=.craftjobs.net;max-age=31536000';
+
+            if (sub == 'cdt') {
+                // No need to verify here because cdt has a whitelist
+                window.location.href = 'https://cdt.craftjobs.net/?d=' + domain;
+                return; 
+            }
+
             window.location.href = 'https://' + sub + '.craftjobs.net';
         }
     });
