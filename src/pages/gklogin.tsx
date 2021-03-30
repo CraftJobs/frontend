@@ -12,10 +12,11 @@ export default function GKLogin() {
     const query = new URLSearchParams(location.search);
 
     const [sub] = useState(query.get('s'));
+    const [field] = useState(query.get('f'));
     const [redirect, setRedirect] = useState('');
     const [token] = useState(localStorage.getItem('token'));
 
-    if (!sub) return <Redirect to='/' />
+    if (!sub || !field) return <Redirect to='/' />
 
     for (const char of sub) {
         if (!VALID_SUB_CHARS.includes(char)) {
@@ -23,11 +24,11 @@ export default function GKLogin() {
         }
     }
 
-    if (!token) return <Redirect to={'/i/login?r=i/gklogin&rq=s=' + sub} />
+    if (!token) return <Redirect to={'/i/login?r=i/gklogin&rq=s=' + sub + '&f=' + field} />
 
     endpoints.gk.check(token, sub).then((res) => {
         if (!res.valid) {
-            setRedirect('/i/login?r=i/gklogin&rq=s=' + sub);
+            setRedirect('/i/login?r=i/gklogin&rq=s=' + sub + '&f=' + field);
             return;
         } else if (!res.field) {
             setRedirect('/');
