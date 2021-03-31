@@ -325,7 +325,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     <figure className="dark:bg-gray-700 bg-gray-100 rounded-xl lg:mt-9 lg:ml-5 shadow pb-3">
     <div className="lg:flex pt-6 text-left pl-3 lg:pl-0 space-y-4 lg:ml-9">
         <img 
-            className="w-24 h-24 rounded-full shadow-lg bg-gray-200 mx-auto lg:mx-0" 
+            className="w-24 h-24 rounded-full shadow-lg bg-gray-200 dark:bg-gray-600 mx-auto lg:mx-0" 
             alt="user avatar" 
             src={avatarUrlInput} 
             style={{objectFit: 'cover'}}
