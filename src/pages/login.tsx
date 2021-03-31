@@ -30,7 +30,7 @@ export default function Login() {
     }
 
     return <div className='container mx-auto lg:px-96'>
-        <figure className="dark:bg-gray-700 rounded-xl mt-9 ml-9 shadow pl-3 pt-2 pb-3 dark:text-gray-300">
+        <figure className="dark:bg-gray-700 bg-gray-100 rounded-xl mt-9 ml-9 shadow pl-3 pt-2 pb-3 dark:text-gray-300">
         <h1 className="text-2xl">Login</h1>
         <br />
         { changedPassword ? <b>Password changed. Login to continue.</b> : ''}

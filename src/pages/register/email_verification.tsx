@@ -40,7 +40,7 @@ export default function EmailVerification() {
 
     return <div>
         <div className="container mx-auto lg:px-64 dark:text-gray-300">
-        <figure className="dark:bg-gray-700 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
+        <figure className="dark:bg-gray-700 bg-gray-100 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
             <h1 className="text-2xl">{!isForgotPassword
                 ? 'Signup: Email Verification' 
                 : 'Forgot Password'
