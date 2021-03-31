@@ -67,9 +67,6 @@ const endpoints = {
             cat: string, 
             auth: string | null
         ): Promise<ListUser[] | { success: boolean, message: string }> => {
-            console.log(cat);
-            console.log(auth);
-
             const req: RequestInit = {};
 
             if (auth) {
@@ -114,26 +111,20 @@ const endpoints = {
 
 async function getEndpoint(url: string, options: RequestInit | undefined) {
     if (!options) {
-        console.log('a');
         options = {};
     }
 
     if (!options.headers) {
-        console.log('b');
         options.headers = {};
     }
 
     if (typeof options.body === 'string') {
-        console.log('c');
         options.headers = {'Content-Type': 'application/json', ...options.headers};
     }
     
     if (options.body && !options.method) {
-        console.log('d');
         options.method = 'post';
     }
-
-    console.log(options);
 
     return await fetch(API_HOST + '/' + url, options).then(r => r.json());
 }

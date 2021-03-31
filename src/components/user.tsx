@@ -284,8 +284,6 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             localStorage.setItem('dark', 'this value is irrelevant so hello how are you?');
         }
 
-        console.log(window.location.protocol);
-
         // Force actual page change here because React sucks
         window.location.href = window.location.protocol + '//' + window.location.host + '/i/r?r=' + username;
     }

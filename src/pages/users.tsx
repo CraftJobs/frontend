@@ -22,8 +22,6 @@ export default function UsersPage() {
     const [redirect, setRedirect] = useState('');
     const token = localStorage.getItem('token');
 
-    console.log(token);
-
     if (!currentCat || !ALL_CATS.includes(currentCat)) {
         return <Redirect to='/i/users?c=rep' />
     }
