@@ -37,8 +37,8 @@ export default function ChangePassword() {
     }
 
     return <div>
-        <div className='container mx-auto lg:px-96'>
-        <figure className="bg-gray-100 rounded-xl mt-9 ml-9 shadow pl-3 pt-2 pb-3">
+        <div className='container mx-auto lg:px-96 dark:text-gray-300'>
+        <figure className="dark:bg-gray-700 rounded-xl mt-9 ml-9 shadow pl-3 pt-2 pb-3">
         <h1 className="text-2xl">Login</h1>
         <br />
         <p>Enter the following details to change your password.</p>
@@ -48,7 +48,7 @@ export default function ChangePassword() {
             : <div>
             <p>Old Password:</p>
             <input 
-                className="shadow text-lg p-1" 
+                className="shadow text-lg p-1 dark:bg-gray-600" 
                 type="password" 
                 onChange={e => setOldPassword(e.target.value)} 
             />
@@ -56,20 +56,20 @@ export default function ChangePassword() {
             </div>}
         <p>Password:</p>
         <input 
-            className="shadow text-lg p-1" 
+            className="shadow text-lg p-1 dark:bg-gray-600" 
             type="password" 
             onChange={e => setPassword(e.target.value)} 
         />
         <br />
         <p>Type it again:</p>
         <input 
-            className="shadow text-lg p-1" 
+            className="shadow text-lg p-1 dark:bg-gray-600" 
             type="password" 
             onChange={e => setConfirm(e.target.value)} 
         />
         <br />
         <button 
-            className="focus shadow-xl button bg-blue-100 mt-2 text-lg rounded p-1 text-blue-500 mb-2"
+            className="focus shadow-xl button bg-blue-100 mt-2 text-lg rounded p-1 text-blue-500 mb-2 dark:bg-gray-600 dark:text-gray-300"
             onClick={handleButtonClick}
         >
             Change Password

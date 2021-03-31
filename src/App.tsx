@@ -11,8 +11,12 @@ import UsersPage from './pages/users';
 import GKLogin from './pages/gklogin';
 
 function App() {
+    if (localStorage.getItem('dark')) {
+        document.getElementsByTagName('body')[0].className = 'dark bg-gray-800';
+    }
+
     return (
-        <div className="App">
+        <div className={localStorage.getItem('dark') ? 'dark' : ''}>
             <BrowserRouter>
                 <Route exact path='/i/register/email-verification' component={RegisterEmailVerification} />
                 <Route exact path='/i/register/finish/:token' component={RegisterFinish} />

@@ -55,8 +55,8 @@ export default function Finish() {
         })
     }
 
-    return <div className="container mx-auto lg:px-64">
-    <figure className="bg-gray-100 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
+    return <div className="container mx-auto lg:px-64 dark:text-gray-300">
+    <figure className="dark:bg-gray-700 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
         <h1 className="text-2xl">Signup: Account details</h1>
         <br />
         <p>Set a username and password. Be careful! Your username cannot be changed.</p>
@@ -64,25 +64,25 @@ export default function Finish() {
         <br />
         <p>Username:</p>
         <input 
-            className="shadow text-lg p-1" 
+            className="shadow text-lg p-1 dark:bg-gray-600" 
             type="text" 
             onChange={e => setUsername(e.target.value)} 
         />
         <p>Password:</p>
         <input 
-            className="shadow text-lg p-1" 
+            className="shadow text-lg p-1 dark:bg-gray-600" 
             type="password" 
             onChange={e => setPassword(e.target.value)} 
         />
         <p>Type it again:</p>
         <input 
-            className="shadow text-lg p-1" 
+            className="shadow text-lg p-1 dark:bg-gray-600" 
             type="password" 
             onChange={e => setConfirm(e.target.value)} 
         />
         <br />
         <button 
-            className="focus shadow-xl button bg-blue-100 mt-2 text-lg rounded p-1 text-blue-500"
+            className="focus shadow-xl button bg-blue-100 mt-2 text-lg rounded p-1 text-blue-500 dark:bg-gray-600 dark:text-gray-300"
             onClick={handleButtonClick}
         >
             Sign up

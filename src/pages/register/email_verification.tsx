@@ -39,8 +39,8 @@ export default function EmailVerification() {
     }
 
     return <div>
-        <div className="container mx-auto lg:px-64">
-        <figure className="bg-gray-100 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
+        <div className="container mx-auto lg:px-64 dark:text-gray-300">
+        <figure className="dark:bg-gray-700 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
             <h1 className="text-2xl">{!isForgotPassword
                 ? 'Signup: Email Verification' 
                 : 'Forgot Password'
@@ -62,17 +62,20 @@ export default function EmailVerification() {
             <br />
             <p>Your email address:</p>
             <input 
-                className="shadow text-lg p-1" 
+                className="shadow text-lg p-1 dark:bg-gray-600" 
                 type="email" 
                 onChange={e => setEmail(e.target.value)} 
             />
             <br />
             <br />
-            <HCaptcha sitekey="8ab99297-33ae-4799-ae34-3e38ca68e7a9" onVerify={(token) => {
+            <HCaptcha 
+                sitekey="8ab99297-33ae-4799-ae34-3e38ca68e7a9" 
+                theme={localStorage.getItem('dark') ? 'dark' : 'light'}
+            onVerify={(token) => {
                 setCaptchaToken(token);
             }} />
             <button 
-                className="focus shadow-xl button bg-blue-100 mt-2 text-lg rounded p-1 text-blue-500"
+                className="focus shadow-xl button bg-blue-100 mt-2 text-lg rounded p-1 text-blue-500 dark:text-gray-300 dark:bg-gray-600"
                 onClick={handleButtonClick}
             >
                 Send Email

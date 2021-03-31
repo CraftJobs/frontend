@@ -59,6 +59,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     const [reputationInput, setReputationInput] = useState(0);
     const [reputationMessageInput, setReputationMessageInput] = useState('');
     const [adminReputation, setAdminReputation] = useState(false);
+    const [dark, _] = useState(!!localStorage.getItem('dark'));
     //#endregion state
 
     function setNeutralReputation() {
@@ -276,8 +277,21 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
         </span>
     }
 
-    return <div>
-    <figure className="lg:flex bg-gray-100 rounded-xl lg:mt-9 lg:ml-5 shadow pl-3 pt-2 pb-3">
+    function toggleDarkMode() {
+        if (dark) {
+            localStorage.removeItem('dark');
+        } else {
+            localStorage.setItem('dark', 'this value is irrelevant so hello how are you?');
+        }
+
+        console.log(window.location.protocol);
+
+        // Force actual page change here because React sucks
+        window.location.href = window.location.protocol + '//' + window.location.host + '/i/r?r=' + username;
+    }
+
+    return <div className="dark:text-gray-300">
+    <figure className="lg:flex dark:bg-gray-700 dark:bg-gray-700 rounded-xl lg:mt-9 lg:ml-5 shadow pl-3 pt-2 pb-3">
         <div className="pl-3">
             {orientation
                 ? 'Welcome to CraftJobs! Set up your profile.'
@@ -302,10 +316,13 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                     <a className="hover:underline" href="https://discord.gg/QKMYAaJPCU">
                         <b>Discord</b>
                     </a> |{' '}
-                    <b><Link className='hover:underline' to='/i/users'>User directory</Link></b>
+                    <b><Link className='hover:underline' to='/i/users'>User directory</Link></b> |{' '}
+                    <span className="hover:underline cursor-pointer" onClick={() => toggleDarkMode()}>
+                        <b>{dark ? 'Light theme' : 'Dark theme'}</b>
+                    </span>
         </div>
     </figure>
-    <figure className="bg-gray-100 rounded-xl lg:mt-9 lg:ml-5 shadow pb-3">
+    <figure className="dark:bg-gray-700 rounded-xl lg:mt-9 lg:ml-5 shadow pb-3">
     <div className="lg:flex pt-6 text-left pl-3 lg:pl-0 space-y-4 lg:ml-9">
         <img 
             className="w-24 h-24 rounded-full shadow-lg bg-gray-200 mx-auto lg:mx-0" 
@@ -331,7 +348,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             <p className="text-2xl pb-1">
                 { edit 
                     ? <input 
-                        className="shadow pl-2" 
+                        className="shadow dark:bg-gray-600 pl-2" 
                         value={fullNameInput} 
                         onChange={e => setFullNameInput(e.target.value)}
                         type="text"
@@ -379,7 +396,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             <span>Rate{rateIsRangeInput ? ' range' : ''}: {edit 
                 ? <span>
                     $<input 
-                        className="shadow pl-1 w-9" 
+                        className="dark:bg-gray-600 shadow pl-1 w-9" 
                         value={rateRangeLowerDisplay} 
                         onChange={e => {
                             setRateRangeLowerInput(e.target.valueAsNumber);
@@ -390,7 +407,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                     {rateIsRangeInput
                         ? <span> - 
                             $<input 
-                                className="shadow pl-1 w-9" 
+                                className="dark:bg-gray-600 shadow pl-1 w-9" 
                                 value={rateRangeHigherDisplay} 
                                 onChange={e => {
                                     setRateRangeHigherInput(e.target.valueAsNumber);
@@ -404,7 +421,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                     <select 
                         value={rateRangeTypeInput} 
                         onChange={e => setRateRangeTypeInput(e.target.value as RateRangeType)}
-                        className="ml-1 pl-1 shadow"
+                        className="ml-1 pl-1 shadow dark:bg-gray-600"
                     >
                         {Object.keys(RateRangeType)
                             .map(type => 
@@ -423,7 +440,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                 : getRateRangeFormatted()
             }<br /></span> : ''} 
             Role: {edit 
-                ? <select className="shadow" value={roleInput} onChange={e => setRoleInput(e.target.value as Role)}>
+                ? <select className="shadow dark:bg-gray-600" value={roleInput} onChange={e => setRoleInput(e.target.value as Role)}>
                     {Object.values(Role).map(x => 
                         <option value={x}>{roleStrings[x]}</option>)
                     }
@@ -441,7 +458,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                     } onClick={() => setReputationInput(1)}>+rep</span> 
                     {' '}/{' '}
                     <span className={
-                        "text-gray-500 hover:underline cursor-pointer" + 
+                        "text-gray-500 hover:underline cursor-pointer dark:text-gray-300" + 
                         (self && self.reputationGiven === 0 ? ' font-bold' : '')
                     } onClick={() => setNeutralReputation()}>neutral</span> 
                     {' '}/{' '}
@@ -486,7 +503,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                 ? Object.values(ConnectionType).map(type => <span className={'ignoreme-' + refreshHack}>
                     <br />
                     {connectionTypeData[type].name}: {connectionTypeData[type].linkPrefix}<input 
-                        className="shadow pl-1" 
+                        className="dark:bg-gray-600 shadow pl-1" 
                         value={connectionsInput.has(type) ? connectionsInput.get(type) : ''} 
                         onChange={e => {
                             setConnectionsInput(connectionsInput.set(type, e.target.value));
@@ -510,7 +527,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     <div>
         {experience ? experience.map(getExperience) : ''}
     </div>
-    { edit || reputationInput !== 0 || adminReputation ? <figure className="bg-gray-100 rounded-xl mt-3 lg:ml-5 shadow pb-3">
+    { edit || reputationInput !== 0 || adminReputation ? <figure className="dark:bg-gray-700 rounded-xl mt-3 lg:ml-5 shadow pb-3">
         <div className="text-sm pl-3 pt-3 mr-3">
             {adminReputation ? <span>
                 Rep Amount: 
@@ -521,7 +538,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             <b>{reputationInput !== 0 || adminReputation ? 'Reputation message' : 'Description:'}</b>
             <br />
             <textarea 
-                className="mt-3 w-full shadow-xl rounded"
+                className="mt-3 w-full shadow-xl rounded dark:bg-gray-600"
                 value={reputationInput !== 0 || adminReputation ? reputationMessageInput : descriptionInput}
                 onChange={
                     e => 
@@ -541,15 +558,15 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
     </figure> : ''}
     </figure>
     { reputationLog.length > 0
-        ? <figure className="bg-gray-100 rounded-xl mt-3 lg:ml-5 shadow pb-3">
+        ? <figure className="dark:bg-gray-700 rounded-xl mt-3 lg:ml-5 shadow pb-3">
             <div className="pt-6 text-left space-y-4 ml-3 lg:ml-9 pb-3">
                 {reputationLog.map(getReputationEntry)}
             </div>
         </figure> 
         : ''
     }
-    <figure className="bg-gray-100 rounded-xl mt-3 lg:ml-5 shadow pb-3">
-        <div className="text-sm pl-3 pt-3 text-gray-500">
+    <figure className="dark:bg-gray-700 rounded-xl mt-3 lg:ml-5 shadow pb-3">
+        <div className="text-sm pl-3 pt-3 text-gray-500 dark:text-gray-300">
             &copy; 2021 CraftJobs 
             &ndash; All Rights Reserved
         </div>

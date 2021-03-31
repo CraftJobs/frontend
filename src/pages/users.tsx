@@ -48,7 +48,7 @@ export default function UsersPage() {
         });
     }
 
-    return <div><figure className="bg-gray-100 rounded-xl lg:mt-5 lg:ml-9 lg:mr-9 shadow pb-1 pt-1">
+    return <div><figure className="dark:bg-gray-700 rounded-xl lg:mt-5 lg:ml-9 lg:mr-9 shadow pb-1 pt-1 dark:text-gray-300">
     <div className="lg:flex text-left pl-3 lg:pl-0 space-y-4 lg:ml-5 lg:mr-5">
         <span>
             <b><Link className='hover:underline' to='/'>back home</Link></b> &mdash;{' '}
@@ -67,7 +67,7 @@ export default function UsersPage() {
         </span>
     </div>
     </figure>
-    <figure className="bg-gray-100 rounded-xl lg:mt-5 lg:ml-9 lg:mr-9 shadow pb-1 pt-1">
+    <figure className="dark:bg-gray-700 rounded-xl lg:mt-5 lg:ml-9 lg:mr-9 shadow pb-1 pt-1 dark:text-gray-300">
     <div className="text-left lg:pl-0 space-y-4">
         <table className="table-auto">
             <tr>
