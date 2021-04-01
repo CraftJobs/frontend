@@ -1,5 +1,5 @@
+//const API_HOST = 'https://api.craftjobs.net/v1';
 const API_HOST = 'https://api.craftjobs.net/v1';
-//const API_HOST = 'http://localhost:7085/v1';
 const SELF_HOST = 'https://craftjobs.net';
 
 const endpoints = {
@@ -39,9 +39,13 @@ const endpoints = {
         me: (token: string) => getEndpoint('users/@me', { headers: { 'Authorization': token } }),
         get: (
             user: string, 
+            selfOnly: boolean,
             token: string|null = null,
         ): Promise<{ success: boolean, user?: User, message?: string, self: UsersGetSelfUser }> =>
-            getEndpoint('users/' + user, token ? { headers: { 'Authorization': token } } : {}),
+            getEndpoint(
+                'users/' + user + (selfOnly ? '?s=1' : ''), 
+                token ? { headers: { 'Authorization': token } } : {}
+            ),
         editMe: (token: string, changes: object): Promise<{ success: boolean, message: string }> =>
             getEndpoint('users/@me/edit', { 
                 headers: { 'Authorization': token },

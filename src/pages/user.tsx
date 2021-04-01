@@ -36,7 +36,7 @@ export default function UserPage() {
 
     if (!fetched) {
         setFetched(true);
-        endpoints.users.get(username, localStorage.getItem('token')).then((res) => {
+        getSisterPreload(username, localStorage.getItem('token')).then((res) => {
             if (!res.success && res.message) {
                 setError((errors as any)[res.message]);
                 return;
@@ -57,6 +57,35 @@ export default function UserPage() {
             setError('');
         })
     }
+
+    type SisterPreloadWindow = {
+        sisterPreload: {
+            success: boolean,
+            user?: UserType,
+            message?: string,
+        } | string
+    }
+    
+    async function getSisterPreload(username: string, token: string|null) {
+        const preload = ((window as any) as SisterPreloadWindow).sisterPreload;
+    
+        if (typeof preload === 'string') {
+            // Have to get actual user here
+            console.log('sisterPreload is not working! If this is in prod, contact an admin!')
+            return await endpoints.users.get(username, false, token);
+        }
+
+        const res: {
+            success: boolean,
+            self?: UsersGetSelfUser,
+            user?: UserType
+            message?: string
+        } = await endpoints.users.get(username, true, token);
+
+        res.user = preload.user;
+
+        return res;
+    }    
 
     return <div className="lg:container mx-auto lg:px-64">
         {error === '' 
