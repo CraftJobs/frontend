@@ -64,6 +64,7 @@ export default function UserPage() {
             user?: UserType,
             message?: string,
             target: string,
+            self?: UsersGetSelfUser,
         } | string
     }
     
@@ -81,16 +82,7 @@ export default function UserPage() {
             return await endpoints.users.get(username, false, token);
         }
 
-        const res: {
-            success: boolean,
-            self?: UsersGetSelfUser,
-            user?: UserType
-            message?: string
-        } = await endpoints.users.get(username, true, token);
-
-        res.user = preload.user;
-
-        return res;
+        return preload;
     }    
 
     return <div className="lg:container mx-auto lg:px-64">

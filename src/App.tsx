@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import UserPage from './pages/user';
 import RegisterEmailVerification from './pages/register/email_verification';
@@ -11,12 +11,21 @@ import UsersPage from './pages/users';
 import GKLogin from './pages/gklogin';
 
 function App() {
+    const [tokenCookieSet, setTokenCookieSet] = useState('no');
+
     if (localStorage.getItem('dark')) {
         document.getElementsByTagName('body')[0].className = 'dark bg-gray-800';
     }
 
+    const token = localStorage.getItem('token');
+
+    if (token && !document.cookie.includes('sistoken=')) {
+        document.cookie = 'sistoken=' + token + ';path=/;max-age=31536000';
+        setTokenCookieSet('yes');
+    }
+
     return (
-        <div className={localStorage.getItem('dark') ? 'dark' : ''}>
+        <div className={localStorage.getItem('dark') ? 'dark' : ''} key={tokenCookieSet}>
             <BrowserRouter>
                 <Route exact path='/i/register/email-verification' component={RegisterEmailVerification} />
                 <Route exact path='/i/register/finish/:token' component={RegisterFinish} />
