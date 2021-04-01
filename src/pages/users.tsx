@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { endpoints, ListUser } from '../constants';
 
@@ -21,6 +21,10 @@ export default function UsersPage() {
     const [fetched, setFetched] = useState(false);
     const [redirect, setRedirect] = useState('');
     const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        document.title = 'Users | CraftJobs';
+    }, []);
 
     if (!currentCat || !ALL_CATS.includes(currentCat)) {
         return <Redirect to='/i/users?c=rep' />

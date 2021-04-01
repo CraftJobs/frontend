@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, useLocation } from 'react-router';
 import { endpoints } from '../../constants';
 
@@ -35,6 +35,10 @@ export default function ChangePassword() {
     if (!token) {
         setRedirect('/i/login?r=i/login/change-password');
     }
+
+    useEffect(() => {
+        document.title = 'Change Password | CraftJobs';
+    }, []);
 
     return <div>
         <div className='container mx-auto lg:px-96 dark:text-gray-300'>

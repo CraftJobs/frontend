@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Role, RateRangeType, ConnectionType, User as UserType, endpoints, UsersGetSelfUser } from '../constants';
 import User from '../components/user';
@@ -6,6 +6,10 @@ import User from '../components/user';
 
 export default function UserPage() {
     const { username }: { username: string } = useParams();
+
+    useEffect(() => {
+        document.title = '@' + username;
+    }, []);
 
     // Fake user while loading
     const [user, setUser] = useState({

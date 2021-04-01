@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import UserPage from './pages/user';
 import RegisterEmailVerification from './pages/register/email_verification';

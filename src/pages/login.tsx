@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { endpoints } from '../constants';
@@ -17,6 +17,10 @@ export default function Login() {
     const [remember, setRemember] = useState(false);
     const [statusText, setStatusText] = useState('');
     const [doRedirect, setDoRedirect] = useState(false);
+
+    useEffect(() => {
+        document.title = 'Login | CraftJobs';
+    }, []);
 
     function handleButtonClick() {
         endpoints.login.root(username, password, remember).then(res => {

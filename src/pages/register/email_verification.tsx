@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, useLocation } from 'react-router';
 import DebugButtons from '../../components/debug_buttons';
 import { endpoints } from '../../constants';
@@ -37,6 +37,10 @@ export default function EmailVerification() {
             setStatusText(res.message);
         });
     }
+
+    useEffect(() => {
+        document.title = 'Email Verification | CraftJobs';
+    }, []);
 
     return <div>
         <div className="container mx-auto lg:px-64 dark:text-gray-300">

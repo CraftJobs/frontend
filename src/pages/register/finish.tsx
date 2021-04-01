@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, useParams } from 'react-router';
 import { endpoints } from '../../constants';
 
@@ -54,6 +54,10 @@ export default function Finish() {
             }
         })
     }
+
+    useEffect(() => {
+        document.title = 'Register Finish | CraftJobs';
+    }, []);
 
     return <div className="container mx-auto lg:px-64 dark:text-gray-300">
     <figure className="dark:bg-gray-700 bg-gray-100 rounded-xl lg:mt-9 lg:ml-9 shadow pl-3 pt-2 pb-3">
