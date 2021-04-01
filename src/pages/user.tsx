@@ -63,6 +63,7 @@ export default function UserPage() {
             success: boolean,
             user?: UserType,
             message?: string,
+            target: string,
         } | string
     }
     
@@ -72,6 +73,11 @@ export default function UserPage() {
         if (typeof preload === 'string') {
             // Have to get actual user here
             console.log('sisterPreload is not working! If this is in prod, contact an admin!')
+            return await endpoints.users.get(username, false, token);
+        }
+
+        if (preload.target != username.toLowerCase()) {
+            // preload is for another user
             return await endpoints.users.get(username, false, token);
         }
 
