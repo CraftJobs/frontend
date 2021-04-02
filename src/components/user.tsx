@@ -569,9 +569,6 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                 <br />
             </span> : ''}
             <b>{reputationInput !== 0 || adminReputation ? 'Reputation message' : 'Description:'} <br /></b>
-            <span>{reputationInput !== 0 || adminReputation ? '' : 
-                'You can use a limited set of Markdown. (If it isn\'t supported, it won\'t render.)'}
-            </span>
             <br />
             <textarea 
                 className="mt-3 w-full shadow-xl rounded dark:bg-gray-600"
