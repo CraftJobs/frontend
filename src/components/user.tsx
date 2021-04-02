@@ -531,7 +531,7 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                 }
 
                 if (uri.startsWith('http')) {
-                    return '/i/out?u=' + encodeURIComponent(uri);
+                    return '/i/out?u=' + encodeURIComponent(uri) + '&f=' + username;
                 }
 
                 return uri;

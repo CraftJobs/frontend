@@ -1,9 +1,11 @@
 import { useLocation } from "react-router"
+import { Link } from "react-router-dom";
 
 export default function OutPage() {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     let dest = query.get('u') || 'https://craftjobs.net';
+    let from = query.get('f') || '/';
 
     if (!dest.startsWith('http://') && !dest.startsWith('https://')) {
         dest = 'https://craftjobs.net';
@@ -20,7 +22,8 @@ export default function OutPage() {
         </p>
         <p>Destination: <b>{dest}</b></p>
         <br />
-        <a href={dest} className="hover:underline"><b>Continue to external link</b></a>
+        <a href={dest} className="hover:underline"><b>Continue to external link</b></a> |{' '}
+        <Link to={'/i/r?r=' + encodeURIComponent(from)} className="hover:underline"><b>Go back</b></Link>
         </figure>
         </div>
     </div>
