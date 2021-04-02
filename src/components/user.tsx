@@ -525,7 +525,9 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             hrefDecorator={(uri: string) => {
                 if (
                     uri.startsWith('https://craftjobs.net/') || 
-                    uri.startsWith('http://craftjobs.net/')
+                    uri.startsWith('http://craftjobs.net/') ||
+                    uri === 'https://craftjobs.net' ||
+                    uri === 'http://craftjobs.net'
                 ){
                     return uri;
                 }
