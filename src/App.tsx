@@ -21,7 +21,6 @@ function App() {
     const token = localStorage.getItem('token');
 
     if (token && !document.cookie.includes('sistoken=' + token)) {
-        console.log('why');
         document.cookie = 'sistoken=' + token + ';path=/;max-age=31536000';
         setTokenCookieSet('yes');
     }
