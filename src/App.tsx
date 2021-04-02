@@ -9,6 +9,7 @@ import RedirectPage from './pages/redirect';
 import Logout from './pages/logout';
 import UsersPage from './pages/users';
 import GKLogin from './pages/gklogin';
+import OutPage from './pages/out';
 
 function App() {
     const [tokenCookieSet, setTokenCookieSet] = useState('no');
@@ -37,6 +38,7 @@ function App() {
                     <UsersPage {...props} key={window.location.href} />
                 }/>
                 <Route exact path='/i/gklogin' component={GKLogin} />
+                <Route exact path='/i/out' component={OutPage} />
                 <Route exact path='/' component={() => <Redirect to='/CraftJobs' />} />
                 <Route exact path='/:username' component={(props: any) => 
                     <UserPage {...props} key={window.location.pathname} /*Force rerender on change */ />} 

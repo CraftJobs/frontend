@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React, { useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
+import Linkify from 'react-linkify';
 
 import { 
     User, 
@@ -16,6 +17,7 @@ import {
     endpoints
 } from '../constants';
 import Connection from './connection';
+import { link } from 'node:fs';
 
 export default function UserComponent(props: { user: User, self?: UsersGetSelfUser }) {
     const location = useLocation();
@@ -518,7 +520,40 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
             }
             { user.connections.size > 0 ? <br /> : '' }
             { description.trim() !== '' ? <br /> : '' }
-            {!edit ? description.split('\n').map(x => <span>{x}<br /></span>) : ''}
+            {!edit ? 
+            <Linkify 
+            hrefDecorator={(uri: string) => {
+                if (
+                    uri.startsWith('https://craftjobs.net/') || 
+                    uri.startsWith('http://craftjobs.net/')
+                ){
+                    return uri;
+                }
+
+                if (uri.startsWith('http')) {
+                    return '/i/out?u=' + encodeURIComponent(uri);
+                }
+
+                return uri;
+            }}
+            componentDecorator={(href: string, text: string, key: number) => {
+                // Special case: self links (only http links allowed thru)
+                if (href.startsWith('http')) {
+                    href = href.replace('https://craftjobs.net', '')
+                        .replace('http://craftjobs.net', '');
+                }
+
+                if (href.startsWith('/i/out')) {
+                    return <Link to={href} key={key} className="hover:underline cursor-pointer">
+                        <b>{text}</b>
+                    </Link>
+                }
+
+                return <a href={href} className="hover:underline"><b>{text}</b></a>;
+            }}
+            >
+                {description.split('\n').map(x => <span>{x}<br /></span>)}
+            </Linkify> : ''}
             <span className='text-red-500'>{error}</span>
         </div>
     </div>
@@ -533,7 +568,10 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                 />
                 <br />
             </span> : ''}
-            <b>{reputationInput !== 0 || adminReputation ? 'Reputation message' : 'Description:'}</b>
+            <b>{reputationInput !== 0 || adminReputation ? 'Reputation message' : 'Description:'} <br /></b>
+            <span>{reputationInput !== 0 || adminReputation ? '' : 
+                'You can use a limited set of Markdown. (If it isn\'t supported, it won\'t render.)'}
+            </span>
             <br />
             <textarea 
                 className="mt-3 w-full shadow-xl rounded dark:bg-gray-600"
