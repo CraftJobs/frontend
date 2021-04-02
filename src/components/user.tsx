@@ -203,7 +203,8 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                     if (res.success) {
                         // TODO: Make this more pretty, but right now we're just gonna redirect us back to
                         // reload the component lol.
-                        setRedirect('/i/r?r=' + username);
+                        //setRedirect('/i/r?r=' + username); - sister redirects are broken here for some reason
+                        window.location.href = 'https://craftjobs.net/i/r?r=' + username;
                     } else {
                         setError(res.message);
                     }
@@ -214,7 +215,8 @@ export default function UserComponent(props: { user: User, self?: UsersGetSelfUs
                 if (res.success) {
                     // TODO: Make this more pretty, but right now we're just gonna redirect us back to
                     // reload the component lol.
-                    setRedirect('/i/r?r=' + username);
+                    //setRedirect('/i/r?r=' + username); - sister redirects are broken here for some reason
+                    window.location.href = 'https://craftjobs.net/i/r?r=' + username;
                 } else {
                     setError(res.message);
                 }
